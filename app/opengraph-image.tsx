@@ -3,7 +3,6 @@ import { ImageResponse } from 'next/og'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 export const alt = 'Touch Creative Agency — Best Creative Agency in Nigeria & Africa'
-export const runtime = 'edge'
 
 export default function OpengraphImage() {
   return new ImageResponse(
