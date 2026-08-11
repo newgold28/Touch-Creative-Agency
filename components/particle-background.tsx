@@ -8,7 +8,7 @@ export default function ParticleBackground() {
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   useEffect(() => {
-    if (!canvasRef.current || isMobile) return
+    if (!canvasRef.current) return
 
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
@@ -35,8 +35,8 @@ export default function ParticleBackground() {
     // Colors: vibrant blue theme
     const colors = ['rgba(37, 99, 235, ', 'rgba(96, 165, 250, ', 'rgba(59, 130, 246, ']
 
-    // Initialize particles
-    const particleCount = 40
+    // Initialize particles (lighter on mobile for performance)
+    const particleCount = isMobile ? 18 : 40
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -52,7 +52,7 @@ export default function ParticleBackground() {
     // Animation loop
     const animate = () => {
       // Clear canvas with subtle background
-      ctx.fillStyle = '#0a0a0a'
+      ctx.fillStyle = '#000000'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       // Update and draw particles
@@ -105,8 +105,6 @@ export default function ParticleBackground() {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [isMobile])
-
-  if (isMobile) return null
 
   return (
     <canvas

@@ -57,10 +57,10 @@ function Counter({ end, suffix = '', duration = 2 }: CounterProps) {
 
 export default function Stats() {
   const stats = [
-    { label: 'Projects Completed', value: 120, suffix: '+' },
-    { label: 'Happy Clients', value: 95, suffix: '+' },
-    { label: 'Team Members', value: 18 },
-    { label: 'Years Experience', value: 4, suffix: '+' },
+    { label: 'Active Partnerships', value: 1 },
+    { label: 'Campaign Onboarding', value: 6, suffix: ' Mos' },
+    { label: 'Dedicated Focus', value: 100, suffix: '%' },
+    { label: 'Creative Partners', value: 5 },
   ]
 
   const containerVariants = {

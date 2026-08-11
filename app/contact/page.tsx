@@ -4,16 +4,21 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 // FIXED: Replaced Phone icon with MessageCircle (the perfect chat/bubble representation for WhatsApp since Lucide does not have brand icons)
 import { Twitter, Linkedin, Instagram, MessageCircle } from 'lucide-react'
+import { TikTokIcon } from '@/components/ui/tiktok-icon'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ParticleBackground from '@/components/particle-background'
+import PageSeo from '@/components/page-seo'
+import FAQ from '@/components/faq'
+import FaqJsonLd from '@/components/faq-jsonld'
 
 // FIXED: Swapped out Phone icon with MessageCircle for an authentic chat bubble design
 const socialLinks = [
+  { name: 'Instagram', href: 'https://www.instagram.com/touchcreativeagency/', icon: Instagram },
+  { name: 'TikTok', href: 'https://www.tiktok.com/@touchcreativeagency', icon: TikTokIcon },
+  { name: 'WhatsApp', href: 'https://wa.me', icon: MessageCircle },
   { name: 'Twitter', href: '#', icon: Twitter },
   { name: 'LinkedIn', href: '#', icon: Linkedin },
-  { name: 'Instagram', href: '#', icon: Instagram },
-  { name: 'WhatsApp', href: 'https://wa.me', icon: MessageCircle },
 ]
 
 export default function Contact() {
@@ -24,6 +29,8 @@ export default function Contact() {
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [formError, setFormError] = useState('')
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -32,20 +39,57 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const openMailtoFallback = () => {
+    const { name, email, company, message } = formData
+    const subject = encodeURIComponent(`New project inquiry from ${name}`)
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\n\n${message}`
+    )
+    window.location.href = `mailto:info@touchcreativeagency.com?subject=${subject}&body=${body}`
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setTimeout(() => {
-      setFormData({ name: '', email: '', company: '', message: '' })
-      setSubmitted(false)
-    }, 3000)
+    setSubmitting(true)
+    setFormError('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        if (res.status === 503) {
+          openMailtoFallback()
+          setSubmitted(true)
+          setTimeout(() => setSubmitted(false), 4000)
+        } else {
+          setFormError(data.error || 'Something went wrong. Please try again.')
+        }
+        return
+      }
+      setSubmitted(true)
+      setTimeout(() => {
+        setFormData({ name: '', email: '', company: '', message: '' })
+        setSubmitted(false)
+      }, 4000)
+    } catch {
+      setFormError('Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
     <>
       <ParticleBackground />
+      <FaqJsonLd />
       <Navbar />
+      <PageSeo
+        title="Contact Us | Best Creative Agency in Nigeria & Africa"
+        description="Get in touch with Touch Creative Agency — Nigeria's best creative agency. Share your project and get a clear, itemized proposal."
+      />
       <main className="min-h-screen pt-32">
         {/* Hero Section */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
@@ -121,9 +165,9 @@ export default function Contact() {
                         key={social.name}
                         href={social.href}
                         title={social.name}
-                        target={social.name === 'WhatsApp' ? '_blank' : undefined}
-                        rel={social.name === 'WhatsApp' ? 'noopener noreferrer' : undefined}
-                        className="w-12 h-12 rounded-full border border-border hover:border-accent hover:bg-accent/10 flex items-center justify-center transition-all group"
+                        target={social.href !== '#' ? '_blank' : undefined}
+                        rel={social.href !== '#' ? 'noopener noreferrer' : undefined}
+                        className="w-12 h-12 rounded-full border border-border hover:border-accent hover:bg-accent/10 flex items-center justify-center transition-all group bg-white/10 backdrop-blur-md"
                       >
                         <IconComponent 
                           size={20} 
@@ -168,7 +212,7 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:border-accent focus:outline-none transition-colors"
+                        className="w-full px-4 py-3 bg-white/10 backdrop-blur-md border border-border rounded-lg focus:border-accent focus:outline-none transition-colors"
                         placeholder="Your name"
                       />
                     </div>
@@ -180,7 +224,7 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:border-accent focus:outline-none transition-colors"
+                        className="w-full px-4 py-3 bg-white/10 backdrop-blur-md border border-border rounded-lg focus:border-accent focus:outline-none transition-colors"
                         placeholder="your@email.com"
                       />
                     </div>
@@ -193,7 +237,7 @@ export default function Contact() {
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:border-accent focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-white/10 backdrop-blur-md border border-border rounded-lg focus:border-accent focus:outline-none transition-colors"
                       placeholder="Your company"
                     />
                   </div>
@@ -206,23 +250,32 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       rows={6}
-                      className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:border-accent focus:outline-none transition-colors resize-none"
+                      className="w-full px-4 py-3 bg-white/10 backdrop-blur-md border border-border rounded-lg focus:border-accent focus:outline-none transition-colors resize-none"
                       placeholder="Tell us about your project..."
                     />
                   </div>
+
+                  {formError && (
+                    <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3">
+                      {formError}
+                    </p>
+                  )}
 
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="w-full px-6 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+                    disabled={submitting}
+                    className="btn-primary w-full px-6 py-4 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Send Message
+                    {submitting ? 'Sending...' : 'Send Message'}
                   </motion.button>
                 </>
               )}
             </motion.form>
           </div>
+
+          <FAQ />
         </section>
       </main>
       <Footer />

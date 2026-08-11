@@ -1,85 +1,21 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ParticleBackground from '@/components/particle-background'
-
-const projects = [
-  {
-    id: 1,
-    title: 'E-Commerce Platform',
-    category: 'Development',
-    description: 'Full-featured e-commerce platform with payment integration',
-    image: '🛒',
-    tags: ['React', 'Node.js', 'MongoDB'],
-    link: '/work/ecommerce',
-  },
-  {
-    id: 2,
-    title: 'Corporate Website',
-    category: 'Design',
-    description: 'Modern corporate website with engaging animations',
-    image: '🏢',
-    tags: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
-    link: '/work/corporate',
-  },
-  {
-    id: 3,
-    title: 'Mobile App Design',
-    category: 'Design',
-    description: 'Mobile app UI/UX design for a fintech startup',
-    image: '📱',
-    tags: ['Figma', 'Design System', 'Prototyping'],
-    link: '/work/mobile-app',
-  },
-  {
-    id: 4,
-    title: 'SaaS Dashboard',
-    category: 'Development',
-    description: 'Analytics dashboard for a SaaS platform',
-    image: '📊',
-    tags: ['React', 'TypeScript', 'D3.js'],
-    link: '/work/saas-dashboard',
-  },
-  {
-    id: 5,
-    title: 'Content Platform',
-    category: 'Strategy',
-    description: 'Content management and publishing platform',
-    image: '📝',
-    tags: ['Next.js', 'CMS', 'SEO'],
-    link: '/work/content-platform',
-  },
-  {
-    id: 6,
-    title: 'Brand Identity',
-    category: 'Design',
-    description: 'Complete brand identity for a tech startup',
-    image: '🎨',
-    tags: ['Branding', 'Visual Identity', 'Guidelines'],
-    link: '/work/brand-identity',
-  },
-]
-
-const categories = ['All', 'Design', 'Development', 'Strategy']
+import PageSeo from '@/components/page-seo'
+import CountUp from '@/components/count-up'
 
 export default function Work() {
-  const [selectedCategory, setSelectedCategory] = useState('All')
-
-  const filteredProjects =
-    selectedCategory === 'All'
-      ? projects
-      : projects.filter((p) => p.category === selectedCategory)
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.15,
         delayChildren: 0.2,
       },
     },
@@ -98,94 +34,149 @@ export default function Work() {
     <>
       <ParticleBackground />
       <Navbar />
-      <main className="min-h-screen pt-32">
-        {/* Hero Section */}
+      <PageSeo
+        title="Our Work & Portfolio | Best Creative Agency in Nigeria & Africa"
+        description="Browse Touch Creative Agency's portfolio — web design, branding, video, and campaigns for brands across Nigeria and Africa."
+      />
+      <main className="min-h-screen pt-32 text-foreground">
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          {/* Hero Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-24"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">Our Work</h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Explore the projects we&apos;re proud of. Each one represents our
-              commitment to excellence and innovation.
-            </p>
+            <div>
+              <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">Our Work</span>
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+                One partnership.
+                <span className="block mt-2 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                  Maximum impact.
+                </span>
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed mb-8">
+                End-to-end campaigns for brands across Nigeria and Africa. Rather than
+                managing dozens of small templates, we dedicate our full resources to
+                executing custom growth work for a select number of clients.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/contact"
+                  className="btn-primary px-6 py-3 text-sm text-center"
+                >
+                  Start Your Project
+                </Link>
+                <Link
+                  href="#campaign"
+                  className="btn-outline px-6 py-3 text-sm text-center"
+                >
+                  See the Current Campaign
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative h-72 md:h-96 rounded-2xl border border-border bg-white/10 backdrop-blur-md p-8 flex flex-col justify-between overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
+              <div className="flex-1 flex flex-col items-center justify-center gap-5">
+                <div className="h-24 w-24 rounded-2xl bg-white flex items-center justify-center overflow-hidden p-2 shadow-xl shadow-primary/20">
+                  <Image src="/skilled-room-logo.png" alt="Skilled Room logo" width={64} height={64} className="w-full h-full object-contain" />
+                </div>
+                <h3 className="text-2xl font-bold tracking-tight">Skilled Room</h3>
+                <p className="text-sm text-muted-foreground">6-month branding &amp; vendor onboarding campaign</p>
+              </div>
+              <span className="absolute top-4 right-4 text-xs bg-accent/20 text-accent border border-accent/20 px-2.5 py-1 rounded-full font-semibold">
+                Active Campaign
+              </span>
+            </div>
           </motion.div>
 
-          {/* Category Filter */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-4 mb-16"
-          >
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 rounded-full font-semibold transition-all ${
-                  selectedCategory === category
-                    ? 'bg-primary text-primary-foreground'
-                    : 'border border-border hover:border-accent text-foreground'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </motion.div>
-
-          {/* Projects Grid */}
+          {/* Single Signature Project Feature */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24"
+            className="space-y-12"
+            id="campaign"
           >
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project.id}
-                variants={itemVariants}
-                whileHover={{ y: -10 }}
-              >
-                <Link href={project.link} className="group cursor-pointer block h-full">
-                  <div className="relative overflow-hidden rounded-xl border border-border hover:border-accent transition-all h-full flex flex-col">
-                    {/* Project Image */}
-                    <div className="h-48 md:h-56 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-6xl group-hover:scale-110 transition-transform duration-300">
-                      {project.image}
+            <motion.h2 
+              variants={itemVariants} 
+              className="text-2xl font-bold uppercase tracking-widest text-accent text-center"
+            >
+              Current Active Campaign
+            </motion.h2>
+
+            <motion.div 
+              variants={itemVariants}
+              className="relative group overflow-hidden rounded-2xl border border-border bg-white/10 backdrop-blur-md p-8 md:p-12"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                {/* Visual Block */}
+                <div className="h-64 md:h-80 bg-white/10 backdrop-blur-md rounded-xl border border-border flex flex-col justify-center p-8 relative overflow-hidden group-hover:border-accent/40 transition-colors">
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
+                  <div className="h-20 w-20 rounded-xl bg-white flex items-center justify-center overflow-hidden p-1.5 shadow-lg shadow-primary/20 mb-5">
+                    <Image src="/skilled-room-logo.png" alt="Skilled Room logo" width={56} height={56} className="w-full h-full object-contain" />
+                  </div>
+                  <h3 className="text-3xl font-extrabold mb-2 tracking-tight">Skilled Room</h3>
+                  <p className="text-sm text-muted-foreground max-w-sm">6-month marketing, flyer design, paid ads, and short-form video content creation campaign.</p>
+                  <div className="absolute bottom-4 right-4 px-3 py-1 bg-accent/20 border border-accent/30 text-accent rounded text-xs font-semibold">
+                    In Progress
+                  </div>
+                </div>
+
+                {/* Info Block */}
+                <div className="space-y-6">
+                  <span className="text-xs font-bold text-accent uppercase tracking-widest block">Featured Client Partner</span>
+                  <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">Skilled Worker Marketplace App</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Helping Skilled Room build their vendor/worker database. We manage the visual design, video marketing, paid advertising, and overall acquisition strategy.
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-4 pb-6 border-b border-border">
+                    <div>
+                      <span className="text-xs text-muted-foreground block">Deliverables</span>
+                      <span className="font-semibold text-sm">Design, Videos, Ads, Copy</span>
                     </div>
-
-                    {/* Project Info */}
-                    <div className="p-6 flex-grow flex flex-col">
-                      <div className="mb-3">
-                        <span className="text-xs text-accent font-semibold uppercase">
-                          {project.category}
-                        </span>
-                      </div>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-accent transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-muted-foreground text-sm mb-4 flex-grow">
-                        {project.description}
-                      </p>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-xs px-2 py-1 bg-primary/20 text-accent rounded"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                    <div>
+                      <span className="text-xs text-muted-foreground block">Scope</span>
+                      <span className="font-semibold text-sm">6 Months Onboarding</span>
                     </div>
                   </div>
-                </Link>
-              </motion.div>
-            ))}
+
+                  <div className="grid grid-cols-3 gap-4">
+                    {[
+                      { value: 1, suffix: '', label: 'Brand Partner' },
+                      { value: 6, suffix: ' Mos', label: 'Campaign Runway' },
+                      { value: 4, suffix: '', label: 'Service Lines' },
+                    ].map((stat) => (
+                      <div key={stat.label} className="p-4 rounded-xl border border-border bg-white/10 backdrop-blur-md">
+                        <div className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                          <CountUp value={stat.value} suffix={stat.suffix} />
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-4">
+                    <Link
+                      href="/work/skilled-room"
+                      className="btn-primary px-6 py-3 text-sm text-center"
+                    >
+                      View Campaign Details
+                    </Link>
+                    <Link
+                      href="/contact"
+                      className="btn-outline px-6 py-3 text-sm text-center"
+                    >
+                      Discuss Your Project
+                    </Link>
+                  </div>
+                </div>
+
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* CTA Section */}
@@ -194,7 +185,7 @@ export default function Work() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-r from-primary/10 to-accent/10 border border-border rounded-2xl p-12 md:p-20 text-center"
+            className="bg-white/10 backdrop-blur-md border border-border rounded-2xl p-12 md:p-20 text-center mt-24"
           >
             <h2 className="text-4xl font-bold mb-4">Have a project in mind?</h2>
             <p className="text-lg text-muted-foreground mb-8">
@@ -202,7 +193,7 @@ export default function Work() {
             </p>
             <Link
               href="/contact"
-              className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-colors"
+              className="btn-primary px-8 py-4"
             >
               Start Your Project
             </Link>
