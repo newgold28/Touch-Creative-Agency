@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ParticleBackground from '@/components/particle-background'
+import ProjectSubnav from '@/components/work/project-subnav'
+import PageSeo from '@/components/page-seo'
 
 function getServiceIcon(title: string) {
   if (title === 'Brand & Flyer Design') {
@@ -152,6 +154,10 @@ export default function SkilledRoomCaseStudy() {
     <>
       <ParticleBackground />
       <Navbar />
+      <PageSeo
+        title="Skilled Room Case Study | Touch Creative Agency"
+        description="Project overview for our 6-month Skilled Room campaign — scope, deliverables, services, and the full campaign roadmap."
+      />
       <main className="min-h-screen pt-32 text-foreground">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Header */}
@@ -183,41 +189,7 @@ export default function SkilledRoomCaseStudy() {
             </p>
           </motion.div>
 
-          {/* Video Showcase */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20"
-          >
-            <div className="rounded-2xl border border-border bg-white/10 backdrop-blur-md p-4 overflow-hidden">
-              <div className="relative aspect-[9/16] w-full overflow-hidden rounded-xl bg-black/60">
-                <iframe
-                  src="https://drive.google.com/file/d/1kbCy-3NtiCzO3blHUxlF9L-Phkt11dJr/preview"
-                  className="absolute inset-0 w-full h-full"
-                  allow="autoplay"
-                  allowFullScreen
-                  title="Short-Form Social Video 1"
-                />
-              </div>
-              <h3 className="text-xl font-bold mt-4 mb-1">Short-Form Social Video 1</h3>
-              <p className="text-muted-foreground text-sm">Targeted high-engagement Instagram Reel showcasing why handymen and artisans should join Skilled Room.</p>
-            </div>
-
-            <div className="rounded-2xl border border-border bg-white/10 backdrop-blur-md p-4 overflow-hidden">
-              <div className="relative aspect-[9/16] w-full overflow-hidden rounded-xl bg-black/60">
-                <iframe
-                  src="https://drive.google.com/file/d/1zK1jK4L3pjsguCMX_OTORnQ1c7ZzZ6Nr/preview"
-                  className="absolute inset-0 w-full h-full"
-                  allow="autoplay"
-                  allowFullScreen
-                  title="Short-Form Social Video 2"
-                />
-              </div>
-              <h3 className="text-xl font-bold mt-4 mb-1">Short-Form Social Video 2</h3>
-              <p className="text-muted-foreground text-sm">TikTok-style creative illustrating the app matching system and how providers get paid directly.</p>
-            </div>
-          </motion.div>
+          <ProjectSubnav />
 
           {/* Project Details */}
           <motion.div

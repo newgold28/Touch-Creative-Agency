@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     'Touch Creative Agency',
   ],
   icons: {
-    icon: '/logo.png',
-    apple: '/apple-icon.png',
+    icon: '/favicon.jpeg',
+    apple: '/favicon.jpeg',
   },
   openGraph: {
     type: 'website',

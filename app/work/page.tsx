@@ -48,11 +48,11 @@ export default function Work() {
             className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24"
           >
             <div>
-              <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">Our Work</span>
+              <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">Our Active Clients</span>
               <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-                One partnership.
+                Active clients.
                 <span className="block mt-2 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                  Maximum impact.
+                  Every campaign live.
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed mb-8">
@@ -159,7 +159,7 @@ export default function Work() {
                     ))}
                   </div>
 
-                  <div className="flex gap-4">
+                  <div className="flex flex-wrap gap-4">
                     <Link
                       href="/work/skilled-room"
                       className="btn-primary px-6 py-3 text-sm text-center"
@@ -172,6 +172,22 @@ export default function Work() {
                     >
                       Discuss Your Project
                     </Link>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    {[
+                      { href: '/work/skilled-room', label: 'Project Overview' },
+                      { href: '/work/skilled-room/content', label: 'Content Production' },
+                      { href: '/work/skilled-room/graphics', label: 'Graphics' },
+                    ].map((section) => (
+                      <Link
+                        key={section.href}
+                        href={section.href}
+                        className="px-4 py-2 rounded-full border border-border bg-white/5 text-sm text-muted-foreground hover:text-accent hover:border-accent/40 transition-colors text-center"
+                      >
+                        {section.label}
+                      </Link>
+                    ))}
                   </div>
                 </div>
 
