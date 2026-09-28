@@ -7,7 +7,6 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ParticleBackground from '@/components/particle-background'
 import PageSeo from '@/components/page-seo'
-import CountUp from '@/components/count-up'
 
 export default function Work() {
   const containerVariants = {
@@ -110,87 +109,37 @@ export default function Work() {
               variants={itemVariants}
               className="relative group overflow-hidden rounded-2xl border border-border bg-white/10 backdrop-blur-md p-8 md:p-12"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                
-                {/* Visual Block */}
-                <div className="h-64 md:h-80 bg-white/10 backdrop-blur-md rounded-xl border border-border flex flex-col justify-center p-8 relative overflow-hidden group-hover:border-accent/40 transition-colors">
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
-                  <div className="h-20 w-20 rounded-xl bg-white flex items-center justify-center overflow-hidden p-1.5 shadow-lg shadow-primary/20 mb-5">
-                    <Image src="/skilled-room-logo.png" alt="Skilled Room logo" width={56} height={56} className="w-full h-full object-contain" />
-                  </div>
-                  <h3 className="text-3xl font-extrabold mb-2 tracking-tight">Skilled Room</h3>
-                  <p className="text-sm text-muted-foreground max-w-sm">6-month marketing, flyer design, paid ads, and short-form video content creation campaign.</p>
-                  <div className="absolute bottom-4 right-4 px-3 py-1 bg-accent/20 border border-accent/30 text-accent rounded text-xs font-semibold">
-                    In Progress
-                  </div>
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
+
+              <div className="relative flex flex-col items-center text-center gap-6">
+                <div className="h-20 w-20 rounded-xl bg-white flex items-center justify-center overflow-hidden p-1.5 shadow-lg shadow-primary/20">
+                  <Image src="/skilled-room-logo.png" alt="Skilled Room logo" width={56} height={56} className="w-full h-full object-contain" />
                 </div>
+                <h3 className="text-3xl font-extrabold tracking-tight">Skilled Room</h3>
+                <p className="text-sm text-muted-foreground max-w-md">6-month marketing, flyer design, paid ads, and short-form video content creation campaign.</p>
 
-                {/* Info Block */}
-                <div className="space-y-6">
-                  <span className="text-xs font-bold text-accent uppercase tracking-widest block">Featured Client Partner</span>
-                  <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">Skilled Worker Marketplace App</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Helping Skilled Room build their vendor/worker database. We manage the visual design, video marketing, paid advertising, and overall acquisition strategy.
-                  </p>
+                <Link
+                  href="/work/skilled-room"
+                  className="btn-primary px-6 py-3 text-sm text-center"
+                >
+                  View Campaign Details
+                </Link>
 
-                  <div className="grid grid-cols-2 gap-4 pb-6 border-b border-border">
-                    <div>
-                      <span className="text-xs text-muted-foreground block">Deliverables</span>
-                      <span className="font-semibold text-sm">Design, Videos, Ads, Copy</span>
-                    </div>
-                    <div>
-                      <span className="text-xs text-muted-foreground block">Scope</span>
-                      <span className="font-semibold text-sm">6 Months Onboarding</span>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-4">
-                    {[
-                      { value: 1, suffix: '', label: 'Brand Partner' },
-                      { value: 6, suffix: ' Mos', label: 'Campaign Runway' },
-                      { value: 4, suffix: '', label: 'Service Lines' },
-                    ].map((stat) => (
-                      <div key={stat.label} className="p-4 rounded-xl border border-border bg-white/10 backdrop-blur-md">
-                        <div className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                          <CountUp value={stat.value} suffix={stat.suffix} />
-                        </div>
-                        <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex flex-wrap gap-4">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  {[
+                    { href: '/work/skilled-room', label: 'Project Overview' },
+                    { href: '/work/skilled-room/content', label: 'Content Production' },
+                    { href: '/work/skilled-room/graphics', label: 'Graphics' },
+                  ].map((section) => (
                     <Link
-                      href="/work/skilled-room"
-                      className="btn-primary px-6 py-3 text-sm text-center"
+                      key={section.href}
+                      href={section.href}
+                      className="px-4 py-2 rounded-full border border-border bg-white/5 text-sm text-muted-foreground hover:text-accent hover:border-accent/40 transition-colors text-center"
                     >
-                      View Campaign Details
+                      {section.label}
                     </Link>
-                    <Link
-                      href="/contact"
-                      className="btn-outline px-6 py-3 text-sm text-center"
-                    >
-                      Discuss Your Project
-                    </Link>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    {[
-                      { href: '/work/skilled-room', label: 'Project Overview' },
-                      { href: '/work/skilled-room/content', label: 'Content Production' },
-                      { href: '/work/skilled-room/graphics', label: 'Graphics' },
-                    ].map((section) => (
-                      <Link
-                        key={section.href}
-                        href={section.href}
-                        className="px-4 py-2 rounded-full border border-border bg-white/5 text-sm text-muted-foreground hover:text-accent hover:border-accent/40 transition-colors text-center"
-                      >
-                        {section.label}
-                      </Link>
-                    ))}
-                  </div>
+                  ))}
                 </div>
-
               </div>
             </motion.div>
           </motion.div>
